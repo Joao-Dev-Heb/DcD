@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Confinamento</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+</head>
+
+<body>
+  <div class="container">
+    <h1>Controle de Confinamento</h1>
+    <div class="tabs">
+      <button data-target="confinamento" onclick="showSection('confinamento')">Confinamento</button>
+      <button data-target="compra" onclick="showSection('compra')">Compra</button>
+      <button data-target="movimentacao" onclick="showSection('movimentacao')">Movimentação</button>
+      <button data-target="venda" onclick="showSection('venda')">Venda</button>
+      <button data-target="producao_racao" onclick="showSection('producao_racao')">Produção Ração</button>
+      <button data-target="consumo_racao" onclick="showSection('consumo_racao')">Consumo Ração</button>
+      <button data-target="relatorios" onclick="showSection('relatorios')">Relatórios</button>
+      <button data-target="simulador" onclick="showSection('simulador')">Simulador</button>
+    </div>
+
+    <!-- Confinamento -->
+    <div id="confinamento" class="form-section">
+      <h2>Registro de Confinamento</h2>
+      <form onsubmit="enviarFormulario(event,'confinamento')">
+        <div class="form-group"><label>Data:</label><input type="date" id="confinamento_data" required></div>
+        <div class="form-group"><label>Curral:</label><input type="text" id="confinamento_curral" required></div>
+        <div class="form-group"><label>Tipo:</label><select id="confinamento_tipo">
+            <option>Entrada</option>
+            <option>Saída</option>
+          </select></div>
+        <div class="form-group"><label>Quantidade:</label><input type="number" id="confinamento_quantidade" required>
+        </div>
+        <div class="form-group"><label>Peso (kg):</label><input type="number" id="confinamento_peso" required></div>
+        <div class="form-group"><label>Custo Total (R$):</label><input type="number" id="confinamento_custo"
+            step="0.01"></div>
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+
+    <!-- Compra -->
+    <div id="compra" class="form-section">
+      <h2>Cadastro de Compras</h2>
+      <div class="section-title">Dados Gerais</div>
+      <form onsubmit="enviarFormulario(event,'compra')">
+        <div class="form-group"><label>Data:</label><input type="date" id="compra_data" required></div>
+        <div class="form-group"><label>Quantidade:</label><input type="number" id="compra_qtde" required></div>
+        <div class="form-group"><label>Peso Total (kg):</label><input type="number" id="compra_peso" required></div>
+        <div class="form-group"><label>Valor Total (R$):</label><input type="number" id="compra_valor" step="0.01"
+            required></div>
+        <div class="form-group"><label>Raça:</label><input type="text" id="compra_raca" required></div>
+        <div class="form-group"><label>Sexo:</label><select id="compra_sexo">
+            <option>Macho</option>
+            <option>Fêmea</option>
+          </select></div>
+        <div class="form-group"><label>Destino:</label><input type="text" id="compra_destino" required></div>
+        <button type="submit">Salvar Compra</button>
+      </form>
+    </div>
+
+    <!-- Movimentação -->
+    <div id="movimentacao" class="form-section">
+      <h2>Movimentação entre Currais</h2>
+      <form onsubmit="enviarFormulario(event,'movimentacao')">
+        <div class="form-group"><label>Data:</label><input type="date" id="mov_data" required></div>
+        <div class="form-group"><label>Qtde:</label><input type="number" id="mov_qtde" required></div>
+        <div class="form-group"><label>Peso (kg):</label><input type="number" id="mov_peso" required></div>
+        <div class="form-group"><label>Origem:</label><input type="text" id="mov_origem" required></div>
+        <div class="form-group"><label>Destino:</label><input type="text" id="mov_destino" required></div>
+        <button type="submit">Salvar Movimentação</button>
+      </form>
+    </div>
+
+    <!-- Venda -->
+    <div id="venda" class="form-section">
+      <h2>Registro de Vendas</h2>
+      <form onsubmit="enviarFormulario(event,'venda')">
+        <div class="form-group"><label>Data:</label><input type="date" id="venda_data" required></div>
+        <div class="form-group"><label>Cliente:</label><input type="text" id="venda_cliente" required></div>
+        <div class="form-group"><label>Quantidade:</label><input type="number" id="venda_qtde" required></div>
+        <div class="form-group"><label>Peso (kg):</label><input type="number" id="venda_peso" required></div>
+        <div class="form-group"><label>Origem:</label><input type="text" id="venda_origem" required></div>
+        <button type="submit">Salvar Venda</button>
+      </form>
+    </div>
+
+    <!-- Produção Ração -->
+    <div id="producao_racao" class="form-section">
+      <h2>Produção de Ração</h2>
+      <form onsubmit="enviarFormulario(event,'producao_racao')">
+        <div class="form-group"><label>Data:</label><input type="date" id="prod_data" required></div>
+        <div class="form-group"><label>Ração:</label><input type="text" id="prod_racao" required></div>
+        <div class="form-group"><label>Qtde (kg):</label><input type="number" id="prod_qtde" required></div>
+        <button type="submit">Salvar Produção</button>
+      </form>
+    </div>
+
+    <!-- Consumo Ração -->
+    <div id="consumo_racao" class="form-section">
+      <h2>Consumo de Ração</h2>
+      <form onsubmit="enviarFormulario(event,'consumo_racao')">
+        <div class="form-group"><label>Data:</label><input type="date" id="cons_data" required></div>
+        <div class="form-group"><label>Curral:</label><input type="text" id="cons_curral" required></div>
+        <div class="form-group"><label>Qtde (kg):</label><input type="number" id="cons_qtde" required></div>
+        <button type="submit">Salvar Consumo</button>
+      </form>
+    </div>
+
+    <!-- Relatórios -->
+    <div id="relatorios" class="form-section">
+      <h2>Relatórios e Totais</h2>
+      <canvas id="chartConsumoDiario"></canvas>
+    </div>
+
+    <!-- Simulador -->
+    <div id="simulador" class="form-section">
+      <h2>Simulador Econômico</h2>
+      <form id="sm" onsubmit="event.preventDefault(); calcularSimulador();">
+        <section class="sc">
+          <div class="section-title">Aquisição</div>
+          <div class="form-group">
+            <label>Preço de Compra (R$):</label><br>
+            <input id="sim_preco_compra" type="number"step="0.01" oninput="updateTudo()">
+          </div>
+          <div class="form-group">
+            <label>Frete (R$):</label><br>
+            <input id="sim_frete" type="number" step="0.01" oninput="updateTudo()">
+            </div>
+          <div class="form-group">
+            <label>Preço Total (R$):</label><br>
+            <input id="sim_preco_total" readonly>
+          </div>
+          <div class="form-group">
+            <label>Peso Inicial (@):</label><input id="sim_peso" type="number" oninput="updateTudo()">
+            </div>
+          <div class="form-group">
+            <label>Preço por Arroba (R$):</label>
+            <input id="sim_preco_arroba" readonly>
+          </div>
+        </section>
+        <section class="sc">
+          <div class="section-title">Recria</div>
+          <div class="form-group">
+            <label>Qtde Dias Recria:</label>
+            <input id="sim_dias_recria" type="number" oninput="updateTudo()">
+            </div>
+          <div class="form-group">
+            <label>Valor Diária Recria (R$):</label>
+            <input id="sim_valor_diaria_recria" type="number" step="0.01" oninput="updateTudo()">
+          </div>
+          <div class="form-group">
+            <label>Ganho de Peso Recria (@):</label>
+            <input id="sim_ganho_recria" type="number" step="0.01" oninput="updateTudo()">
+            </div>
+          <div class="form-group">
+            <label>Valor por Arroba Recria (R$):</label>
+            <input id="sim_valor_arroba_recria" readonly>
+            </div>
+        </section>
+        <section class="sc">
+          <div class="section-title">Engorda</div>
+          <div class="form-group">
+            <label>Qtde Dias Engorda:</label>
+            <input id="sim_dias_engorda" type="number" oninput="updateTudo()">
+          </div>
+          <div class="form-group"><label>Valor Diária Engorda (R$):</label>
+            <input id="sim_valor_diaria_engorda" type="number" step="0.01" oninput="updateTudo()">
+          </div>
+          <div class="form-group">
+            <label>Ganho de Peso Engorda (@):</label>
+            <input id="sim_ganho_engorda" type="number" step="0.01" oninput="updateTudo()">
+            </div>
+          <div class="form-group">
+            <label>Valor por Arroba Engorda (R$):</label>
+            <input id="sim_valor_arroba_engorda" readonly>
+            </div>
+        </section>
+        <section class="sc">
+          <div class="section-title">Resumo</div>
+          <div class="form-group">
+            <label>Peso Final (@):</label>
+            <input id="sim_peso_final" readonly>
+          </div>
+          <div class="form-group">
+            <label>Valor Total Gasto (R$):</label>
+            <input id="sim_valor_total_gasto" readonly>
+          </div>
+          <div class="form-group">
+            <label>Valor Arroba Venda (R$):</label>
+            <input id="sim_valor_arroba_venda" type="number" step="0.01" oninput="updateTudo()">
+            </div>
+          <div class="form-group">
+            <label>Valor Total Venda (R$):</label>
+            <input id="sim_valor_total_venda" readonly>
+          </div>
+          <div class="form-group">
+            <label>Lucro (R$):</label>
+            <input id="sim_lucro" readonly>
+          </div>
+          <button type="submit">Calcular</button>
+        </section>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
