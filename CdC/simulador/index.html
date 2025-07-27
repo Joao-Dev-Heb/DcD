@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="simulador.css">
+        <title>Simulador Ecônomico</title>
+</head>
+
+<body>
+        <h2>Simulador Econômico</h2>
+        <form method="post" onsubmit="event.preventDefault(); calcularSimulador();">
+                <section>
+                        <div class="section-title">Aquisição</div>
+                        <div class="section-content">
+                                <div class="form-group">
+                                        <label>Preço de Compra (R$):</label>
+                                        <input id="sim_preco_compra" type="number" step="0.01" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Frete (R$):</label>
+                                        <input id="sim_frete" type="number" step="0.01" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Preço Total (R$):</label>
+                                        <input id="sim_preco_total" readonly>
+                                </div>
+                                <div class="form-group">
+                                        <label>Peso Inicial (@):</label>
+                                        <input id="sim_peso" type="number" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Preço por Arroba (R$):</label>
+                                        <input id="sim_preco_arroba" readonly>
+                                </div>
+                        </div>
+                </section>
+                <section>
+                        <div class="section-title">Recria</div>
+                        <div class="section-content">
+                                <div class="form-group">
+                                        <label>Qtde Dias Recria:</label>
+                                        <input id="sim_dias_recria" type="number" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor Diária Recria (R$):</label>
+                                        <input id="sim_valor_diaria_recria" type="number" step="0.01"
+                                                oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Ganho de Peso Recria (@):</label>
+                                        <input id="sim_ganho_recria" type="number" step="0.01" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor por Arroba Recria (R$):</label>
+                                        <input id="sim_valor_arroba_recria" readonly>
+                                </div>
+                        </div>
+                </section>
+                <section>
+                        <div class="section-title">Engorda</div>
+                        <div class="section-content">
+                                <div class="form-group">
+                                        <label>Qtde Dias Engorda:</label>
+                                        <input id="sim_dias_engorda" type="number" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor Diária Engorda (R$):</label>
+                                        <input id="sim_valor_diaria_engorda" type="number" step="0.01"
+                                                oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Ganho de Peso Engorda (@):</label>
+                                        <input id="sim_ganho_engorda" type="number" step="0.01" oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor por Arroba Engorda (R$):</label>
+                                        <input id="sim_valor_arroba_engorda" readonly>
+                                </div>
+                        </div>
+                </section>
+                <section>
+                        <div class="section-title">Resumo</div>
+                        <div class="section-content">
+                                <div class="form-group">
+                                        <label>Peso Final (@):</label>
+                                        <input id="sim_peso_final" readonly>
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor Total Gasto (R$):</label>
+                                        <input id="sim_valor_total_gasto" readonly>
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor Arroba Venda (R$):</label>
+                                        <input id="sim_valor_arroba_venda" type="number" step="0.01"
+                                                oninput="updateTudo()">
+                                </div>
+                                <div class="form-group">
+                                        <label>Valor Total Venda (R$):</label>
+                                        <input id="sim_valor_total_venda" readonly>
+                                </div>
+                                <div class="form-group">
+                                        <label>Lucro (R$):</label>
+                                        <input id="sim_lucro" readonly>
+                                </div>
+                        </div>
+                </section>
+                <button type="submit">Calcular</button>
+        </form>
+        <script src="simulador.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+function updateTudo() {
+     updatePrecoTotal(); updatePrecoArroba(); 
+     updateValorArrobaRecria(); updateValorArrobaEngorda(); 
+     updatePesoFinal(); updateValorTotalGasto(); 
+     updateValorTotalVenda(); updateLucro();
+}
+function updatePrecoTotal() { 
+    const pc = parseFloat(document.getElementById('sim_preco_compra').value) 
+    || 0; const fr = parseFloat(document.getElementById('sim_frete').value) 
+    || 0; document.getElementById('sim_preco_total').value = (pc + fr).toFixed(2); 
+}
+function updatePrecoArroba() { 
+    const total = parseFloat(document.getElementById('sim_preco_total').value) 
+    || 0; const peso = parseFloat(document.getElementById('sim_peso').value) 
+    || 0; document.getElementById('sim_preco_arroba').value = peso ? (total / peso).toFixed(2) : '0.00'; 
+}
+function updateValorArrobaRecria() { 
+    const dias = parseFloat(document.getElementById('sim_dias_recria').value) 
+    || 0; const diaria = parseFloat(document.getElementById('sim_valor_diaria_recria').value) 
+    || 0; const ganho = parseFloat(document.getElementById('sim_ganho_recria').value) 
+    || 0; document.getElementById('sim_valor_arroba_recria').value = ganho ? ((dias * diaria) / ganho).toFixed(2) : '0.00'; 
+}
+function updateValorArrobaEngorda() { 
+    const dias = parseFloat(document.getElementById('sim_dias_engorda').value) 
+    || 0; const diaria = parseFloat(document.getElementById('sim_valor_diaria_engorda').value) 
+    || 0; const ganho = parseFloat(document.getElementById('sim_ganho_engorda').value) 
+    || 0; document.getElementById('sim_valor_arroba_engorda').value = ganho ? ((dias * diaria) / ganho).toFixed(2) : '0.00'; 
+}
+
+function updatePesoFinal() { 
+    const p = parseFloat(document.getElementById('sim_peso').value) 
+    || 0; const r = parseFloat(document.getElementById('sim_ganho_recria').value) 
+    || 0; const e = parseFloat(document.getElementById('sim_ganho_engorda').value) 
+    || 0; document.getElementById('sim_peso_final').value = (p + r + e).toFixed(2); 
+}
+function updateValorTotalGasto() { 
+    const t = parseFloat(document.getElementById('sim_preco_total').value) 
+    || 0; const dr = parseFloat(document.getElementById('sim_dias_recria').value) 
+    || 0; const vr = parseFloat(document.getElementById('sim_valor_diaria_recria').value) 
+    || 0; const de = parseFloat(document.getElementById('sim_dias_engorda').value) 
+    || 0; const ve = parseFloat(document.getElementById('sim_valor_diaria_engorda').value) 
+    || 0; document.getElementById('sim_valor_total_gasto').value = (t + dr * vr + de * ve).toFixed(2); 
+}
+function updateValorTotalVenda() { 
+    const pres = parseFloat(document.getElementById('sim_valor_arroba_venda').value) 
+    || 0; const pf = parseFloat(document.getElementById('sim_peso_final').value) 
+    || 0; document.getElementById('sim_valor_total_venda').value = (pres * pf).toFixed(2); 
+}
+function updateLucro() { 
+    const g = parseFloat(document.getElementById('sim_valor_total_gasto').value) 
+    || 0; const v = parseFloat(document.getElementById('sim_valor_total_venda').value) 
+    || 0; document.getElementById('sim_lucro').value = (v - g).toFixed(2); 
+}
+function calcularSimulador() { updateTudo(); }
+function enviarFormulario(e, tipo) { 
+    e.preventDefault(); const d = { tipoForm: tipo }; 
+    document.querySelectorAll(`#${tipo} input,#${tipo} select`).forEach(i => d[i.id] = i.value); 
+    fetch('https://script.google.com/macros/s/ID/exec', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); 
+    alert('Enviado'); 
+}
+function renderChart() { 
+    const ctx = document.getElementById('chartConsumoDiario'); 
+    if (!ctx) return; if (window.chart) chart.destroy(); 
+    window.chart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [{ label: 'Consumo Diário', data: [], fill: false }] }, options: { responsive: true, scales: { y: { beginAtZero: true } } } }); 
+}
+window.onload = () => showSection('confinamento');
